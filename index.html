@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="theme-color" content="#050a42">
+  <title>AI Governance Maturity Assessment Web App - Australia</title>
+  <link rel="icon" type="image/svg+xml" href="assets/app-icon.svg">
+  <link rel="manifest" href="app.webmanifest">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="progress-line" aria-hidden="true">
+    <span id="progressBar"></span>
+  </div>
+
+  <div id="noticeScreen" class="notice-screen">
+    <section class="notice-panel" aria-labelledby="noticeTitle">
+      <img class="notice-icon" src="assets/app-icon.svg" alt="" aria-hidden="true">
+      <p class="micro-label">Before you begin</p>
+      <h1 id="noticeTitle">For guidance purposes only</h1>
+      <p>
+        This assessment is an educational diagnostic tool for internal planning. It does not
+        constitute legal, regulatory, financial, accounting, or professional advice, and does
+        not create an advisory relationship.
+      </p>
+      <p>
+        Results are generated locally from your responses using a rule-based scoring model.
+        The regulatory frameworks referenced in this tool may change. Verify obligations with
+        qualified advisers before taking compliance action.
+      </p>
+      <p>
+        By proceeding, you acknowledge these limitations and confirm you have read and
+        understood this notice.
+      </p>
+      <button id="acknowledgeBtn" class="button button-primary" type="button">
+        <span aria-hidden="true">&check;</span>
+        Acknowledge and proceed
+      </button>
+    </section>
+  </div>
+
+  <div id="app" class="app-shell" hidden>
+    <aside class="side-rail" aria-label="Assessment navigation">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">
+          <img src="assets/app-icon.svg" alt="">
+        </div>
+        <div>
+          <p class="brand-title">AI Governance</p>
+          <p class="brand-subtitle">Maturity Assessment</p>
+        </div>
+      </div>
+
+      <nav id="stepNav" class="step-nav" aria-label="Assessment sections"></nav>
+
+      <div class="rail-card">
+        <p class="rail-kicker">Web application</p>
+        <p>Deploy as a static site. Drafts stay in this browser profile unless you export or print the report.</p>
+      </div>
+    </aside>
+
+    <main id="workspace" class="workspace">
+      <header class="topbar">
+        <div>
+          <p class="micro-label" id="headerContext">Australia / Finance leaders</p>
+          <h1>AI Governance Maturity Assessment</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="saveDraftBtn" class="button button-secondary" type="button">
+            <span aria-hidden="true">&#9633;</span>
+            Save draft
+          </button>
+          <button id="resetBtn" class="button button-ghost" type="button">
+            <span aria-hidden="true">&#8634;</span>
+            Start over
+          </button>
+        </div>
+      </header>
+
+      <section id="assessmentView" class="assessment-view" aria-live="polite">
+        <div class="section-heading">
+          <p id="sectionLabel" class="micro-label"></p>
+          <h2 id="sectionTitle"></h2>
+          <p id="sectionDescription"></p>
+        </div>
+
+        <div id="validationMessage" class="validation-message" role="alert" hidden></div>
+        <div id="questionsHost" class="question-stack"></div>
+
+        <div class="nav-actions">
+          <button id="backBtn" class="button button-secondary" type="button">
+            <span aria-hidden="true">&larr;</span>
+            Back
+          </button>
+          <button id="nextBtn" class="button button-primary" type="button">
+            Continue
+            <span aria-hidden="true">&rarr;</span>
+          </button>
+        </div>
+      </section>
+
+      <section id="resultsView" class="results-view" hidden aria-live="polite">
+        <div class="report-header">
+          <div>
+            <p class="micro-label">Assessment report</p>
+            <h2>AI governance readiness for finance leadership</h2>
+            <p id="reportSubline"></p>
+          </div>
+          <div id="maturityBadge" class="maturity-badge">
+            <span id="maturityLevel"></span>
+            <strong id="maturityScore"></strong>
+          </div>
+        </div>
+
+        <div id="calibrationCard" class="alert-card" hidden>
+          <p class="micro-label">Calibration gap</p>
+          <h3>Self-assessment is materially above the computed score</h3>
+          <p id="calibrationText"></p>
+        </div>
+
+        <div class="metric-strip" id="metricStrip"></div>
+
+        <section class="report-panel board-panel" aria-labelledby="boardSummaryTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Board summary</p>
+            <h3 id="boardSummaryTitle">Executive readout for directors and senior leaders</h3>
+          </div>
+          <div id="boardSummaryList" class="board-summary-grid"></div>
+        </section>
+
+        <section class="report-panel summary-panel" aria-labelledby="holisticTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Holistic assessment</p>
+            <h3 id="holisticTitle">Whole-of-framework interpretation</h3>
+            <p id="holisticSummary"></p>
+          </div>
+        </section>
+
+        <section class="report-panel" aria-labelledby="domainsTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Domain breakdown</p>
+            <h3 id="domainsTitle">Governance dimensions</h3>
+            <p>The marker represents the 70% threshold for managed-level governance.</p>
+          </div>
+          <div id="scoreBars" class="score-bars"></div>
+        </section>
+
+        <section class="report-panel accent-panel" aria-labelledby="frameworkTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Primary recommendation</p>
+            <h3 id="frameworkTitle"></h3>
+            <p id="frameworkRationale"></p>
+          </div>
+          <div id="frameworkCards" class="framework-grid"></div>
+        </section>
+
+        <section class="report-panel" aria-labelledby="frameworkAnalysisTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Framework alignment</p>
+            <h3 id="frameworkAnalysisTitle">Critical framework-by-framework analysis</h3>
+            <p>Each item below is assessed against the controls implied by your selected responses, not merely listed as a generic reference.</p>
+          </div>
+          <div id="frameworkAnalysisList" class="framework-analysis-grid"></div>
+        </section>
+
+        <section class="report-panel risk-panel" aria-labelledby="gapsTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Priority gaps</p>
+            <h3 id="gapsTitle">Immediate actions required</h3>
+          </div>
+          <div id="gapsList" class="gap-list"></div>
+        </section>
+
+        <section class="report-panel" aria-labelledby="principlesTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Strategic principles</p>
+            <h3 id="principlesTitle">Operating principles for your context</h3>
+          </div>
+          <div id="principlesList" class="principles-grid"></div>
+        </section>
+
+        <section class="report-panel" aria-labelledby="roadmapTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Roadmap</p>
+            <h3 id="roadmapTitle">90-day action plan</h3>
+          </div>
+          <div id="roadmapList" class="roadmap-grid"></div>
+        </section>
+
+        <section class="report-panel watch-panel" aria-labelledby="watchTitle">
+          <div class="panel-heading">
+            <p class="micro-label">Strategic watch</p>
+            <h3 id="watchTitle">Critical blind spot</h3>
+            <p id="watchText"></p>
+          </div>
+        </section>
+
+        <section class="safe-harbour" aria-labelledby="safeHarbourTitle">
+          <p class="micro-label">Important notice</p>
+          <h3 id="safeHarbourTitle">Not legal or regulatory advice</h3>
+          <p>
+            This report is generated automatically from your responses and may contain errors,
+            omissions, or outdated references. It should not be relied upon without independent
+            verification by qualified advisers.
+          </p>
+          <p>
+            No warranty is provided. To the maximum extent permitted by law, no liability is
+            accepted for loss or expense arising from reliance on this assessment.
+          </p>
+        </section>
+
+        <div class="report-actions">
+          <button id="editAnswersBtn" class="button button-secondary" type="button">
+            <span aria-hidden="true">&larr;</span>
+            Edit answers
+          </button>
+          <button id="copySummaryBtn" class="button button-secondary" type="button">
+            <span aria-hidden="true">&#10697;</span>
+            Copy board summary
+          </button>
+          <button id="exportJsonBtn" class="button button-secondary" type="button">
+            <span aria-hidden="true">&darr;</span>
+            Export JSON
+          </button>
+          <button id="printBtn" class="button button-primary" type="button">
+            <span aria-hidden="true">&#9113;</span>
+            Print or save PDF
+          </button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="app.js"></script>
+  <script>
+    if ("serviceWorker" in navigator && window.location.protocol.indexOf("http") === 0) {
+      window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js").catch(function () {});
+      });
+    }
+  </script>
+</body>
+</html>

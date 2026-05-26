@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">AI Governance Maturity Assessment icon</title>
+  <desc id="desc">A blue and gold executive governance shield with an AI monogram and growth bars.</desc>
+  <defs>
+    <linearGradient id="blue" x1="18" y1="16" x2="102" y2="118" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0a4cff"/>
+      <stop offset="0.58" stop-color="#0822c4"/>
+      <stop offset="1" stop-color="#050a42"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="26" y1="22" x2="106" y2="110" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#fff36d"/>
+      <stop offset="0.45" stop-color="#ffd400"/>
+      <stop offset="1" stop-color="#b88400"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#000842" flood-opacity="0.3"/>
+    </filter>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#blue)"/>
+  <path d="M64 14 103 28v31c0 26-16 48-39 58-23-10-39-32-39-58V28l39-14Z" fill="#ffffff" opacity="0.12"/>
+  <path d="M64 22 96 34v25c0 21-13 39-32 48-19-9-32-27-32-48V34l32-12Z" fill="none" stroke="url(#gold)" stroke-width="5" filter="url(#shadow)"/>
+  <path d="M41 82h10V61H41v21Zm18 0h10V47H59v35Zm18 0h10V55H77v27Z" fill="url(#gold)"/>
+  <path d="M39 91h50" stroke="#fff36d" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="38" cy="39" r="6" fill="#ffd400"/>
+  <circle cx="90" cy="39" r="6" fill="#ffd400"/>
+  <circle cx="64" cy="30" r="5" fill="#fff36d"/>
+  <path d="M44 41h40M64 35v13" stroke="#fff36d" stroke-width="4" stroke-linecap="round"/>
+  <text x="64" y="74" text-anchor="middle" font-family="Segoe UI, Arial, sans-serif" font-size="26" font-weight="800" fill="#ffffff" letter-spacing="1">AI</text>
+</svg>

@@ -1,0 +1,18 @@
+{
+  "name": "AI Governance Maturity Assessment",
+  "short_name": "AI Governance",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#04128a",
+  "theme_color": "#050a42",
+  "description": "Browser-based AI governance maturity assessment for Australian finance leaders.",
+  "icons": [
+    {
+      "src": "assets/app-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
